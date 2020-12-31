@@ -1,0 +1,37 @@
+
+.container {
+  .top {
+    width: 200px;
+    height: 200px;
+    background-color: palegoldenrod;
+    // transition: all 1s;
+    // -moz-transition: all 1s;
+    // -webkit-transition: all 1s;
+    // -o-transition: all 0.1s;
+    // animation: myMove 5s;
+    // -webkit-animation: myMove 5s;
+  }
+  
+  // .top:hover {
+  //   background-color: red;
+  // }
+
+  // @keyframes myMove {
+  //   0% {background-color: red;}
+  //   50% {background-color: olive;}
+  //   100% {background-color: purple;}
+  // }
+
+  // @-webkit-keyframes myMove {
+  //   0% {background-color: red;}
+  //   50% {background-color: olive;}
+  //   100% {background-color: purple;}
+  // }
+
+  .bottom {
+    width: 0;
+    height: 0;
+    border: 10px solid;
+    border-color: red transparent transparent transparent;
+  }
+}
