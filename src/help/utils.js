@@ -137,10 +137,7 @@ export const quitSort = (list = [], left = 0, right = list.length -1) => {
       index++
     }
   }
-  console.log('idne', index)
-
   swap(list, left, index-1)
-  
   quitSort(list, left, index-2)
   quitSort(list, index, right)
   return list

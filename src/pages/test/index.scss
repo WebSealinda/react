@@ -45,7 +45,7 @@
     .border {
       position: relative;
     }
-    .border::after {
+    .border:after {
       content: '';
       position: absolute;
       bottom: 0;
@@ -55,6 +55,21 @@
       width: 100%;
       height: 1px;
       background-color: red;
+    }
+
+    .border-1px {
+      position: relative;
+    }
+    .border-1px:after {
+      position: absolute;
+      content: '';
+      left: 0;
+      top: 0;
+      height: 200%;
+      width: 200%;
+      border: 1px solid red;
+      transform: scale(0.5);
+      transform-origin: left top;
     }
   
     .triangle {
@@ -98,32 +113,97 @@
   }
   
   .parent {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     background-color: red;
     display: flex;
     align-items: center;
     justify-content: center;
     .child {
-      width: 100px;
-      height: 100px;
+      width: 50px;
+      height: 50px;
       background-color: rosybrown;
     }
   }
 
   .parent-relative {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     background-color: red;
     position: relative;
     .child {
-      width: 100px;
-      height: 100px;
+      width: 50px;
+      height: 50px;
       background-color: rosybrown;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+    }
+  }
+
+  .parent-margin {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: relative;
+    .child {
+      width: 50px;
+      height: 50px;
+      background-color: rosybrown;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+  }
+  .out #in a {
+    background-color: red;
+  }
+  #out .in {
+    background-color: purple;
+  }
+
+
+  .out #in a {
+    color: #ffffff;
+  }
+
+  #out .in {
+    color: red;
+  }
+
+  .float {
+    border: 5px solid red;
+    // overflow: hidden; // auto BFC
+    zoom: 1;
+    .child {
+      width: 50px;
+      height: 50px;
+      background-color: purple;
+      float: left;
+    }
+  }
+  .float:after {
+    height: 0;
+    display: block;
+    visibility: hidden;
+    content: '';
+    clear: both;
+  }
+
+  .float-clear {
+    border: 5px solid red;
+    .child {
+      width: 50px;
+      height: 50px;
+      background-color: purple;
+      float: left;
+    }
+    .clear {
+      clear: both;
     }
   }
 }
