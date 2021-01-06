@@ -115,7 +115,8 @@ module.exports = {
     //   path.resolve(__dirname, 'src')
     // ],
     alias: {
-      components: path.resolve(__dirname, 'src/components')
+      components: path.resolve(__dirname, 'src/components'),
+      help: path.resolve(__dirname, 'src/help'),
     }
   },
   plugins: [
@@ -137,7 +138,7 @@ module.exports = {
       paths: glob.sync(path.join(__dirname, '/src/*.js'))
     }),
     require('autoprefixer'),
-    new UglifyjsWebpackplugin(),
+    // new UglifyjsWebpackplugin(),
     new ExtractTextPlugin({
       filename: '[name].[hash:8].css',
     })
