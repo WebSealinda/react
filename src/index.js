@@ -9,9 +9,8 @@ render(
   <Router history={history}>
     <React.Suspense fallback={<div>加载中</div>}>
       <Switch>
-        <Route path="/welcome" component={React.lazy(() => import('./pages/welcome/index.jsx'))} />
-        <Route path="/test" component={React.lazy(() => import('./pages/test'))} />
-        <Route path="/hello" component={React.lazy(() => import('./pages/hello'))} />
+        <Route path="/test" component={React.lazy(() => import('./pages/test/index.jsx'))} />
+        <Route path="/hello" component={React.lazy(() => import('./pages/hello/index.jsx'))} />
       </Switch>
     </React.Suspense>
   </Router>

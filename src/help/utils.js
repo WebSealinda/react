@@ -41,7 +41,52 @@ export const extendFun = function () {
 }
 
 // 手写promise
-export const MyPromise = function () {}
+const PENDING = 'pending'
+const FULFILLED = 'fulfilled'
+const REJECTED = 'rejected'
+export const MyPromise = function (executor) {
+  this.status = PENDING
+  this.value = null
+  this.reason = null
+  this.onFulfilled = []
+  this.onRejected = []
+
+  const resolve = value => {
+    if(this.status === PENDING) {
+      this.status = FULFILLED
+      this.value = value
+      this.onFulfilled.forEach(fn => fn(value))
+    }
+  }
+  const rejected = reason => {
+    if(this.status === PENDING) {
+      this.status = REJECTED
+      this.reason = reason
+      this.onRejected.forEach(fn => fn(reason))
+    }
+  }
+
+  try {
+    executor(resolve, rejected)
+  }catch(e) {
+    rejected(e)
+  }
+}
+MyPromise.prototype.then = function(onFulfilled, onRejected) {
+  onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : data => data
+  onRejected = typeof onRejected === 'function' ? onRejected : err =>{  throw err }
+  
+  if(this.status === FULFILLED) {
+    onFulfilled(this.value)
+  }
+  if(this.status === REJECTED) {
+    onRejected(this.reason)
+  }
+  if(this.status === PENDING) {
+    this.onFulfilled.push(onFulfilled)
+    this.onRejected.push(onRejected)
+  }
+}
 
 // 节流throttle (第一个人说了算) 在某段时间内，不管你触发了多少次回调，我都只认第一次，并在计时结束是给予响应
 export const throttle = (fn, delay) => {
@@ -58,12 +103,10 @@ export const throttle = (fn, delay) => {
 // 防抖Debounce(最后一个人说了算) 在某段时间内，不管你触发了多少次回调，我都只认最后一次
 export const debounce = (fn, delay) => {
   let timer = null
-  return () => {
-    if (timer) {
-      clearTimeout(timer)
-    }
-    timer = setTimeout(fn, delay)
+  if (timer) {
+    clearTimeout(timer)
   }
+  timer = setTimeout(fn, delay)
 }
 
 export const throttleDebounce = (fn, delay) => {
