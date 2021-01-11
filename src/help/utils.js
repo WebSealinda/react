@@ -245,3 +245,39 @@ Array.prototype.myReduce = function(fn, initialValue) {
   }
   return base
 }
+
+// 解析 URL Params 为对象
+export const parseParams = url => {
+  const str = url.split('?')[1]
+  const list = str.split('&')
+  let result = {}
+  list.forEach(item => {
+    const param = item.split('=')
+    result[param[0]] = param.length>1? decodeURIComponent(param[1]) : true
+  })
+  return result
+}
+
+export const renderList = (data) => {
+  const { total, list } = data
+  let once = 20
+  let page = total/once
+  const ul = document.getElementById('cuisineId')
+
+  const loop = (curTotal, curIndex) => {
+    if(curTotal <= 0) {
+      return false
+    }
+    window.requestAnimationFrame(function() {
+      let fragment = document.createDocumentFragment()
+      for(let i = 0; i < page; i++) {
+        let li = document.createElement('li')
+        li.innerHTML = curIndex + i + ' : ' + ~~(Math.random() * total)
+        fragment.appendChild(li)
+      }
+      ul.appendChild(fragment)
+      loop(curTotal-page, curIndex+page)
+    })
+  }
+  loop(list, 0)
+}

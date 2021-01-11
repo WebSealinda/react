@@ -10,6 +10,7 @@ import {
   sum,
   reduceList,
   MyPromise,
+  parseParams
 } from "help/utils"
 import './index.scss'
 
@@ -47,6 +48,7 @@ const testArr4 = [
   ["s", "m"],
   ["小码", "大码"],
 ]
+let url = 'http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&enabled'
 
 export default class Hell extends React.Component {
   render() {
@@ -71,7 +73,7 @@ export default class Hell extends React.Component {
           console.log("er", err)
         }
       )
-      
+    console.log(parseParams(url)) 
 
     return (
       <div className="container">
