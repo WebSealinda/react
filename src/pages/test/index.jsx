@@ -80,6 +80,7 @@ export default class Hell extends React.Component {
           <div className="animation">animation</div>
           <div className="border">1px</div>
           <div className="border-1px">1ppx border</div>
+          <div className="box-shadow-1px"></div>
           <div className="triangle"></div>
           <div className="fan"></div>
         </div>
@@ -121,6 +122,14 @@ export default class Hell extends React.Component {
         <div className="relative">relative</div>
         <div className="absolute-parent">
           <div className="absolute">Absolute</div>
+        </div>
+        <div>
+          <div className="zindex-parent1">
+            <div className="child">z-index1</div>
+          </div>
+          <div className="zindex-parent2">
+            <div className="child">z-index2</div>
+          </div>
         </div>
       </div>
     )
