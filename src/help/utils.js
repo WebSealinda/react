@@ -186,18 +186,6 @@ export const quitSort = (list = [], left = 0, right = list.length -1) => {
   return list
 }
 
-function partition(arr, left ,right) {     // 分区操作
-  let pivot = left, index = pivot + 1
-  for (let i = index; i <= right; i++) {
-    if (arr[i] < arr[pivot]) {
-      swap(arr, i, index)
-      index++
-    }        
-  }
-  swap(arr, pivot, index - 1)
-  return index-1
-}
-
 function swap(list, i, j) {
   [list[i], list[j]] = [list[j], list[i]]
 }
@@ -256,6 +244,58 @@ export const parseParams = url => {
     result[param[0]] = param.length>1? decodeURIComponent(param[1]) : true
   })
   return result
+}
+
+// 查找字符串中出现最多的字符和个数
+export const getStrNum  = str => {
+  const map = new Map()
+  str.split('').forEach(item => {
+    if(map.has(item)) {
+      map.set(item, map.get(item)+1)
+    }else {
+      map.set(item, 1)
+    }
+  })
+  const result = [...map].sort(function(a, b){
+    return b[1]-a[1]
+  })[0]
+  return result
+}
+
+// 数组交集
+export const union = (list1, list2) => {
+  return list1.filter(a => {
+    return list2.includes(a)
+  })
+}
+
+// 查找第三大数字
+export const findK = (list, k) => {
+  list.sort(function(a, b) {
+    return a-b
+  })
+  const len = list.length
+  return len < k? list[len-1] : list[k-1]
+}
+
+// 判断回文数
+export const isPalindrome = (num) => {
+  const reverse = String(num).split('').reverse().join('')
+  return reverse == num
+}
+
+// 实现千位分隔符
+export const parseToMoney = num => {
+  // return num.toLocaleString()
+  let [integer, decimal] = String(num).split('.')
+  const integerList = integer.split('').reverse()
+  const arr = integerList.map((item, index) => {
+    if((index+1)%3 == 0 && index !== integerList.length-1) {
+      return item = `,${item}`
+    }
+    return item
+  })
+  return `${arr.reverse().join('')} ${decimal? `.${decimal}` : ''}`
 }
 
 export const renderList = (data) => {

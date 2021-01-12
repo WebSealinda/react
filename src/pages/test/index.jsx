@@ -10,7 +10,12 @@ import {
   sum,
   reduceList,
   MyPromise,
-  parseParams
+  parseParams,
+  getStrNum,
+  union,
+  isPalindrome,
+  parseToMoney,
+  findK
 } from "help/utils"
 import './index.scss'
 
@@ -38,6 +43,7 @@ const testObj = {
   sex: "girl",
   age: 22,
   favorite: "play",
+  family: { brother: "wei", mother: "ha", father: "hei" },
   family: { brother: "wei", mother: "ha", father: "hei" },
 }
 const testArr1 = [3, 2, 1, 10, 4, 11, 5, 8, 7, 6, 9]
@@ -74,6 +80,11 @@ export default class Hell extends React.Component {
         }
       )
     console.log(parseParams(url)) 
+    console.log(getStrNum('abcabcabcbbccccc')) 
+    console.log(union(testArr2, testArr3)) 
+    console.log(isPalindrome(12121))
+    console.log(parseToMoney(1212188))
+    console.log(findK([1], 3))
 
     return (
       <div className="container">
