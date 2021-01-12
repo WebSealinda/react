@@ -298,6 +298,40 @@ export const parseToMoney = num => {
   return `${arr.reverse().join('')} ${decimal? `.${decimal}` : ''}`
 }
 
+// 深度优先遍历
+export const depthSearch = list => {
+  let result = []
+  const loop = currentList => {
+    currentList.forEach(item => {
+      result.push(item.name)
+      if(item.children?.length>0) {
+        loop(item.children)
+      }
+    })
+  }
+  loop(list)
+  return result
+}
+
+// 广度优先遍历
+export const breadSearch = list => {
+  let result = []
+  const loop = currentList => {
+    let node = []
+    currentList.forEach((item, index) => {
+      result.push(item.name)
+      if(item.children?.length>0) {
+        node.push(...item.children)
+      }
+      if(index === currentList.length -1) {
+        loop(node)
+      }
+    })
+  }
+  loop(list)
+  return result
+}
+
 export const renderList = (data) => {
   const { total, list } = data
   let once = 20
