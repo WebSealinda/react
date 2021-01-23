@@ -17,7 +17,8 @@ import {
   parseToMoney,
   findK,
   depthSearch,
-  breadSearch
+  breadSearch,
+  eventLoop
 } from "help/utils"
 import './index.scss'
 
@@ -115,6 +116,7 @@ export default class Hell extends React.Component {
     console.log(findK([1], 3))
     console.log(depthSearch(testArr5).join(','))
     console.log(breadSearch(testArr5).join(','))
+    eventLoop()
 
     return (
       <div className="container">

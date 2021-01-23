@@ -3,28 +3,41 @@ import { debounce } from 'help/utils'
 
 let timer = null
 
-export default React.memo(props => {
-  const onInput = e => {
+export default class Hello extends React.Component {
+  state = {
+    count: 0
+  }
+
+  onInput = e => {
     if (timer) {
       clearTimeout(timer)
     }
     timer = setTimeout(callback, 1000)
   }
 
-  const callback = () => {
+  callback = () => {
     console.log('callback')
   }
 
 
-  const onUpload = (file, data) => {
+  onUpload = (file, data) => {
     console.log('file', file)
     console.log('data', data)
   }
 
-  return (
-   <form>
-     <input type="text" name="name" onInput={onInput} />
-     <input type="file" name="file"  multiple="multiple" onChange={onUpload} />
-   </form>
-  )
-})
+  onCount = () => {
+    for(let i=1; i<100; i++) {
+      this.setState({count: i})
+    }
+  }
+
+  render() {
+    return (
+     <form>
+       <input type="text" name="name" onInput={this.onInput} />
+       <input type="file" name="file"  multiple="multiple" onChange={this.onUpload} />
+       <div onClick={this.onCount}>{this.state.count}</div>
+     </form>
+    )
+  }
+}

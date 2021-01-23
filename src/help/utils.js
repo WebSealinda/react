@@ -55,14 +55,18 @@ export const MyPromise = function (executor) {
     if(this.status === PENDING) {
       this.status = FULFILLED
       this.value = value
-      this.onFulfilled.forEach(fn => fn(value))
+      setTimeout(() => {
+        this.onFulfilled.forEach(fn => fn(value))
+      })
     }
   }
   const rejected = reason => {
     if(this.status === PENDING) {
       this.status = REJECTED
       this.reason = reason
-      this.onRejected.forEach(fn => fn(reason))
+      setTimeout(() => {
+        this.onRejected.forEach(fn => fn(reason))
+      })
     }
   }
 
@@ -72,7 +76,7 @@ export const MyPromise = function (executor) {
     rejected(e)
   }
 }
-MyPromise.prototype.then = function(onFulfilled, onRejected) {
+MyPromise.prototype.then = function(onFulfilled, onRejected) { // 发布订阅模式
   onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : data => data
   onRejected = typeof onRejected === 'function' ? onRejected : err =>{  throw err }
   
@@ -86,6 +90,25 @@ MyPromise.prototype.then = function(onFulfilled, onRejected) {
     this.onFulfilled.push(onFulfilled)
     this.onRejected.push(onRejected)
   }
+}
+
+export function eventLoop() {
+  setTimeout(() => {
+    console.log(1)
+  })
+  new Promise((resolve) => {
+    resolve(2)
+  }).then(res => {
+    new Promise((resolve) => {
+      console.log(3)
+      // resolve(4) 不resolve不会走到then
+    }).then(res => {
+      setTimeout(() => {
+        console.log(4)
+      }, 2)
+    })
+    console.log(res)
+  })
 }
 
 // 节流throttle (第一个人说了算) 在某段时间内，不管你触发了多少次回调，我都只认第一次，并在计时结束是给予响应
