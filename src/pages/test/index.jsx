@@ -18,7 +18,9 @@ import {
   findK,
   depthSearch,
   breadSearch,
-  eventLoop
+  eventLoop,
+  sumStr,
+  flatten
 } from "help/utils"
 import './index.scss'
 
@@ -117,6 +119,8 @@ export default class Hell extends React.Component {
     console.log(depthSearch(testArr5).join(','))
     console.log(breadSearch(testArr5).join(','))
     eventLoop()
+    console.log(sumStr('191', '29'))
+    console.log(flatten([[1,[2,3],4,[[5,6],7]]]))
 
     return (
       <div className="container">
